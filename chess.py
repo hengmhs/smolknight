@@ -1,5 +1,7 @@
+import copy
+
 grid = [
-    [1, 1, 1, 0, 0, 0, 0, 0],
+    [1, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
@@ -8,6 +10,10 @@ grid = [
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
 ]
+
+EMPTY = 0
+PAWN = 1
+KNIGHT = 2
 
 
 def convert_to_coords(s):
@@ -32,9 +38,9 @@ def convert_to_coords(s):
 
 def display_char(v):
     char_map = {
-        0: ".",
-        1: "\033[31m♟\033[0m",
-        2: "♞",
+        EMPTY: ".",
+        PAWN: "\033[31m♟\033[0m",
+        KNIGHT: "♞",
     }
 
     return char_map[v]
@@ -100,8 +106,23 @@ def valid_knight_moves(start_r, start_c):
     return valid_dirs
 
 
+# spawn the knight
 knight_pos = (3, 4)
-grid[knight_pos[0]][knight_pos[1]] = 2
+grid[knight_pos[0]][knight_pos[1]] = KNIGHT
+
+
+def move_pawns(grid):
+    new_grid = copy.deepcopy(grid)
+    for r_idx, row in enumerate(grid):
+        for c_idx, val in enumerate(row):
+            if val == PAWN:
+                print(r_idx, c_idx)
+                # check if the knight is blocking
+                if new_grid[r_idx + 1][c_idx] == EMPTY:
+                    new_grid[r_idx + 1][c_idx] = PAWN
+                    new_grid[r_idx][c_idx] = EMPTY
+    return new_grid
+
 
 while True:
     valid_knight_moves_res = valid_knight_moves(knight_pos[0], knight_pos[1])
@@ -113,7 +134,9 @@ while True:
         if target_coords in valid_knight_moves_res:
             move_knight(grid, target_coords, knight_pos)
             knight_pos = target_coords
+            grid = move_pawns(grid)
         else:
             print(f"{target_move} is an invalid move")
     except:
+        # use with caution as this masks other types of errors as an input error
         print(f"{target_move} is an invalid move")

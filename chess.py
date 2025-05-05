@@ -2,7 +2,7 @@ grid = [
     [1, 1, 1, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 2, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
@@ -22,35 +22,25 @@ def convert_to_coords(s):
         "h": 7,
     }
 
-    # E4
+    # A2
     # column, then row
     # convert to row, column
+    # (1, 0)
 
-    return (int(s[1]), c_map[s[0].lower()])
+    return (int(s[1]) - 1, c_map[s[0].lower()])
 
 
 def display_char(v):
     char_map = {
         0: ".",
-        1: "♙",
-        2: "\033[31m♞\033[0m",
+        1: "\033[31m♟\033[0m",
+        2: "♞",
     }
 
     return char_map[v]
 
 
 def draw_grid(grid):
-
-    # for row in grid:
-    #     for val in row:
-    #         print("┌───┐", end="")
-    #     print("\n")
-    #     for val in row:
-    #         print("│ " + str(val) + " │", end="")
-    #     print("\n")
-    #     for val in row:
-    #         print("└───┘", end="")
-    #     print("\n")
     print("   A B C D E F G H")
     for idx, row in enumerate(grid):
         print(str(idx + 1) + "  ", end="")
@@ -63,4 +53,57 @@ def draw_grid(grid):
     print("   A B C D E F G H")
 
 
-draw_grid(grid)
+def is_valid_move(grid, r, c):
+    return 0 <= r < len(grid) and 0 <= c <= len(grid[0])
+
+
+def move_knight(grid, target_coords, curr_coords):
+    target_r, target_c = target_coords
+    curr_r, curr_c = curr_coords
+
+    if target_coords in valid_knight_moves(curr_r, curr_c) and is_valid_move(
+        grid, target_r, target_c
+    ):
+        grid[target_r][target_c] = grid[curr_r][curr_c]
+        print(grid[curr_r][curr_c])
+        grid[curr_r][curr_c] = 0
+    else:
+        print("Invalid Move")
+
+
+def valid_knight_moves(start_r, start_c):
+    directions = [
+        [-1, -2],
+        [-2, -1],
+        [-2, 1],
+        [-1, 2],
+        [1, 2],
+        [2, 1],
+        [2, -1],
+        [1, -2],
+    ]
+    valid_dirs = []
+    # . x . x .
+    # x . . . x
+    # . . K . .
+    # x . . . x
+    # . x . x .
+    for mov_r, mov_c in directions:
+        end_r = start_r + mov_r
+        end_c = start_c + mov_c
+        valid_dirs.append((end_r, end_c))
+    return valid_dirs
+
+
+knight_pos = (3, 4)
+grid[knight_pos[0]][knight_pos[1]] = 2
+
+while True:
+    draw_grid(grid)
+
+    target_move = input("Move: ")
+    target_coords = convert_to_coords(target_move)
+
+    if target_coords in valid_knight_moves(knight_pos[0], knight_pos[1]):
+        move_knight(grid, target_coords, knight_pos)
+        knight_pos = target_coords

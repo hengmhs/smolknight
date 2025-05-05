@@ -1,8 +1,8 @@
 grid = [
+    [1, 1, 1, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 2, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
@@ -29,6 +29,16 @@ def convert_to_coords(s):
     return (int(s[1]), c_map[s[0].lower()])
 
 
+def display_char(v):
+    char_map = {
+        0: ".",
+        1: "♙",
+        2: "\033[31m♞\033[0m",
+    }
+
+    return char_map[v]
+
+
 def draw_grid(grid):
 
     # for row in grid:
@@ -48,7 +58,9 @@ def draw_grid(grid):
             end_c = " "
             if c_idx == len(row) - 1:
                 end_c = "\n"
-            print(str("."), end=end_c)
+            print(display_char(val), end=" ")
+        print(str(idx + 1) + "  ", end=end_c)
+    print("   A B C D E F G H")
 
 
 draw_grid(grid)

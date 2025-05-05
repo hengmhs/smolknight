@@ -40,16 +40,21 @@ def display_char(v):
     return char_map[v]
 
 
-def draw_grid(grid):
+def draw_grid(grid, valid_knight_moves_res):
     print("   A B C D E F G H")
-    for idx, row in enumerate(grid):
-        print(str(idx + 1) + "  ", end="")
+    for r_idx, row in enumerate(grid):
+        print(str(r_idx + 1) + "  ", end="")
         for c_idx, val in enumerate(row):
             end_c = " "
+            highlight_start = ""
+            highlight_end = ""
             if c_idx == len(row) - 1:
                 end_c = "\n"
-            print(display_char(val), end=" ")
-        print(str(idx + 1) + "  ", end=end_c)
+            if (r_idx, c_idx) in valid_knight_moves_res:
+                highlight_start = "\033[42m"
+                highlight_end = "\033[0m"
+            print(highlight_start + display_char(val) + highlight_end, end=" ")
+        print(str(r_idx + 1) + "  ", end=end_c)
     print("   A B C D E F G H")
 
 
@@ -99,11 +104,12 @@ knight_pos = (3, 4)
 grid[knight_pos[0]][knight_pos[1]] = 2
 
 while True:
-    draw_grid(grid)
+    valid_knight_moves_res = valid_knight_moves(knight_pos[0], knight_pos[1])
+    draw_grid(grid, valid_knight_moves_res)
 
     target_move = input("Move: ")
     target_coords = convert_to_coords(target_move)
 
-    if target_coords in valid_knight_moves(knight_pos[0], knight_pos[1]):
+    if target_coords in valid_knight_moves_res:
         move_knight(grid, target_coords, knight_pos)
         knight_pos = target_coords

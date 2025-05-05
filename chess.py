@@ -1,11 +1,11 @@
 import copy
 
 grid = [
-    [1, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
@@ -14,6 +14,11 @@ grid = [
 EMPTY = 0
 PAWN = 1
 KNIGHT = 2
+
+GREEN_TEXT = "\033[32m"
+RED_TEXT = "\033[31m"
+TEXT_RESET = "\033[0m"
+GREEN_BG = "\033[42m"
 
 
 def convert_to_coords(s):
@@ -39,7 +44,7 @@ def convert_to_coords(s):
 def display_char(v):
     char_map = {
         EMPTY: ".",
-        PAWN: "\033[31m♟\033[0m",
+        PAWN: f"{RED_TEXT}♟{TEXT_RESET}",
         KNIGHT: "♞",
     }
 
@@ -57,8 +62,8 @@ def draw_grid(grid, valid_knight_moves_res):
             if c_idx == len(row) - 1:
                 end_c = "\n"
             if (r_idx, c_idx) in valid_knight_moves_res:
-                highlight_start = "\033[42m"
-                highlight_end = "\033[0m"
+                highlight_start = GREEN_BG
+                highlight_end = TEXT_RESET
             print(highlight_start + display_char(val) + highlight_end, end=" ")
         print(str(r_idx + 1) + "  ", end=end_c)
     print("   A B C D E F G H")
@@ -76,7 +81,6 @@ def move_knight(grid, target_coords, curr_coords):
         grid, target_r, target_c
     ):
         grid[target_r][target_c] = grid[curr_r][curr_c]
-        print(grid[curr_r][curr_c])
         grid[curr_r][curr_c] = 0
     else:
         print("Invalid Move")
@@ -107,7 +111,7 @@ def valid_knight_moves(start_r, start_c):
 
 
 # spawn the knight
-knight_pos = (3, 4)
+knight_pos = (4, 4)
 grid[knight_pos[0]][knight_pos[1]] = KNIGHT
 
 
@@ -116,13 +120,41 @@ def move_pawns(grid):
     for r_idx, row in enumerate(grid):
         for c_idx, val in enumerate(row):
             if val == PAWN:
-                print(r_idx, c_idx)
                 # check if the knight is blocking
                 if new_grid[r_idx + 1][c_idx] == EMPTY:
                     new_grid[r_idx + 1][c_idx] = PAWN
                     new_grid[r_idx][c_idx] = EMPTY
     return new_grid
 
+
+def is_game_over(grid):
+    for val in grid[-1]:
+        if val == PAWN:
+            return True
+    return False
+
+
+def is_round_over(grid):
+    for row in grid:
+        for val in row:
+            if val == PAWN:
+                return False
+    return True
+
+
+# Introduction
+print("┌───┐")
+print("RULES")
+print("└───┘")
+
+print("1. Use your knight to stop the pawns from reaching your backline (the 8th row)")
+print(
+    "2. After you move, all enemy pawns will move forward unless there is a pawn or knight blocking it"
+)
+print("3. Enemy pawns will not capture your knight.")
+print(
+    "4. Enemy pawns will attempt to move in sequence from their positions in their first row to the last row\n"
+)
 
 while True:
     valid_knight_moves_res = valid_knight_moves(knight_pos[0], knight_pos[1])
@@ -135,6 +167,21 @@ while True:
             move_knight(grid, target_coords, knight_pos)
             knight_pos = target_coords
             grid = move_pawns(grid)
+            if is_round_over(grid):
+                print(GREEN_TEXT)
+                print("┌───────────┐")
+                print("ROUND SUCCESS")
+                print("└───────────┘")
+                print(TEXT_RESET)
+            elif is_game_over(grid):
+                print(RED_TEXT)
+                print("┌───────┐")
+                print("GAME OVER")
+                print("└───────┘")
+                print(TEXT_RESET)
+                print("A pawn reached your backline!\n")
+                draw_grid(grid, [])
+                break
         else:
             print(f"{target_move} is an invalid move")
     except:

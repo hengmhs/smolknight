@@ -108,8 +108,12 @@ while True:
     draw_grid(grid, valid_knight_moves_res)
 
     target_move = input("Move: ")
-    target_coords = convert_to_coords(target_move)
-
-    if target_coords in valid_knight_moves_res:
-        move_knight(grid, target_coords, knight_pos)
-        knight_pos = target_coords
+    try:
+        target_coords = convert_to_coords(target_move)
+        if target_coords in valid_knight_moves_res:
+            move_knight(grid, target_coords, knight_pos)
+            knight_pos = target_coords
+        else:
+            print(f"{target_move} is an invalid move")
+    except:
+        print(f"{target_move} is an invalid move")

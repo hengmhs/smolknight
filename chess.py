@@ -3,9 +3,9 @@ import copy
 grid = [
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 1, 0, 0, 0, 0],
-    [0, 0, 0, 1, 0, 0, 0, 0],
-    [0, 0, 0, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
@@ -110,11 +110,6 @@ def valid_knight_moves(start_r, start_c):
     return valid_dirs
 
 
-# spawn the knight
-knight_pos = (4, 4)
-grid[knight_pos[0]][knight_pos[1]] = KNIGHT
-
-
 def move_pawns(grid):
     new_grid = copy.deepcopy(grid)
     for r_idx, row in enumerate(grid):
@@ -156,11 +151,103 @@ print(
     "4. Enemy pawns will attempt to move in sequence from their positions in their first row to the last row\n"
 )
 
+
+level = 0
+
+level_map = {
+    0: {
+        "title": "Solo Leveling",
+        "grid": [
+            [0, 0, 0, 1, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+        ],
+        "knight_pos": (4, 4),
+    },
+    1: {
+        "title": "Duo Queue",
+        "grid": [
+            [0, 0, 0, 1, 1, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+        ],
+        "knight_pos": (4, 4),
+    },
+    2: {
+        "title": "Conga Line",
+        "grid": [
+            [0, 0, 0, 1, 0, 0, 0, 0],
+            [0, 0, 0, 1, 0, 0, 0, 0],
+            [0, 0, 0, 1, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+        ],
+        "knight_pos": (7, 7),
+    },
+    3: {
+        "title": "Birds of a Feather",
+        "grid": [
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 1, 0, 1, 0, 0, 0],
+            [0, 0, 0, 1, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+        ],
+        "knight_pos": (7, 0),
+    },
+}
+
+print("Levels: ")
+
+for level_num, level_data in level_map.items():
+    print(f"{level_num}. {level_data["title"]}")
+
+print("\n")
+level_select = input("Level Select: ")
+
+level = int(level_select)
+
+
 while True:
+
+    if level >= len(level_map):
+        print(GREEN_TEXT)
+        print("┌─────────────────┐")
+        print("ALL LEVELS COMPLETE")
+        print("└─────────────────┘")
+        print(TEXT_RESET)
+        print("You've completed the game! Congratulations!\n")
+        break
+
+    curr_level = level_map[level]
+
+    if is_round_over(grid):
+        print(f"Level {level}: {curr_level["title"]}\n")
+        grid = curr_level["grid"]
+        knight_pos = curr_level["knight_pos"]
+        grid[knight_pos[0]][knight_pos[1]] = KNIGHT
+
     valid_knight_moves_res = valid_knight_moves(knight_pos[0], knight_pos[1])
     draw_grid(grid, valid_knight_moves_res)
 
     target_move = input("Move: ")
+    print("\n")
     try:
         target_coords = convert_to_coords(target_move)
         if target_coords in valid_knight_moves_res:
@@ -173,6 +260,7 @@ while True:
                 print("ROUND SUCCESS")
                 print("└───────────┘")
                 print(TEXT_RESET)
+                level += 1
             elif is_game_over(grid):
                 print(RED_TEXT)
                 print("┌───────┐")

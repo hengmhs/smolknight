@@ -148,7 +148,7 @@ print(
 )
 print("3. Enemy pawns will not capture your knight.")
 print(
-    "4. Enemy pawns will attempt to move in sequence from their positions in their first row to the last row\n"
+    "4. All enemy pawns in row 1 will move first, then row 2, and so on. If there is a pawn in row A1 and A2, the pawn in A1 will be blocked from moving by the pawn in A2. \n"
 )
 
 
@@ -156,7 +156,7 @@ level = 0
 
 level_map = {
     0: {
-        "title": "Solo Leveling [x]",
+        "title": "Solo Leveling",
         "grid": [
             [0, 0, 0, 1, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
@@ -170,7 +170,7 @@ level_map = {
         "knight_pos": (4, 4),
     },
     1: {
-        "title": "Duo Queue [x]",
+        "title": "Duo Queue",
         "grid": [
             [0, 0, 0, 1, 1, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
@@ -184,7 +184,7 @@ level_map = {
         "knight_pos": (4, 4),
     },
     2: {
-        "title": "Conga Line [x]",
+        "title": "Conga Line",
         "grid": [
             [0, 0, 0, 1, 0, 0, 0, 0],
             [0, 0, 0, 1, 0, 0, 0, 0],
@@ -198,7 +198,7 @@ level_map = {
         "knight_pos": (7, 7),
     },
     3: {
-        "title": "Birds of a Feather [x]",
+        "title": "Birds of a Feather",
         "grid": [
             [0, 0, 1, 0, 1, 0, 0, 0],
             [0, 0, 0, 1, 0, 0, 0, 0],
@@ -212,7 +212,7 @@ level_map = {
         "knight_pos": (7, 0),
     },
     4: {
-        "title": "Wall Climber [x]",
+        "title": "Wall Climber",
         "grid": [
             [0, 0, 1, 1, 1, 1, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
@@ -226,7 +226,7 @@ level_map = {
         "knight_pos": (7, 4),
     },
     5: {
-        "title": "Same Day Delivery [x]",
+        "title": "Same Day Delivery",
         "grid": [
             [0, 0, 0, 1, 1, 0, 0, 0],
             [0, 0, 0, 1, 1, 0, 0, 0],
@@ -240,7 +240,21 @@ level_map = {
         "knight_pos": (6, 6),
     },
     6: {
-        "title": "I Need Healing [x]",
+        "title": "Parallel Lives",
+        "grid": [
+            [1, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+        ],
+        "knight_pos": (0, 4),
+    },
+    7: {
+        "title": "Mercy",
         "grid": [
             [0, 1, 0, 0, 0, 0, 0, 0],
             [1, 1, 1, 0, 0, 0, 0, 0],
@@ -253,8 +267,8 @@ level_map = {
         ],
         "knight_pos": (0, 6),
     },
-    7: {
-        "title": "Pillar of Creation [x]",
+    8: {
+        "title": "Pillar of Creation",
         "grid": [
             [0, 0, 0, 1, 0, 0, 0, 0],
             [0, 0, 0, 1, 0, 0, 0, 0],
@@ -267,8 +281,8 @@ level_map = {
         ],
         "knight_pos": (7, 4),
     },
-    8: {
-        "title": "Ambush [x]",
+    9: {
+        "title": "Ambush",
         "grid": [
             [0, 0, 0, 1, 1, 1, 0, 0],
             [0, 0, 0, 1, 0, 1, 0, 0],
@@ -281,7 +295,21 @@ level_map = {
         ],
         "knight_pos": (1, 4),
     },
-    9: {
+    10: {
+        "title": "Free Will",
+        "grid": [
+            [0, 0, 0, 0, 1, 0, 1, 0],
+            [0, 0, 1, 0, 1, 0, 1, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 1, 0, 1, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 1, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+        ],
+        "knight_pos": (7, 7),
+    },
+    11: {
         "title": "Vendetta",
         "grid": [
             [0, 1, 0, 0, 0, 1, 0, 0],
@@ -293,21 +321,7 @@ level_map = {
             [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
         ],
-        "knight_pos": (7, 7),
-    },
-    10: {
-        "title": "Hightide",
-        "grid": [
-            [0, 1, 1, 1, 1, 1, 1, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-        ],
-        "knight_pos": (2, 4),
+        "knight_pos": (5, 3),
     },
 }
 

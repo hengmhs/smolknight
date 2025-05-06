@@ -1,19 +1,17 @@
 import chess, copy
 
 grid = [
-    [0, 0, 0, 1, 1, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 1, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
 ]
-knight_pos = (4, 4)
+knight_pos = (0, 5)
 grid[knight_pos[0]][knight_pos[1]] = 2
-
-# let's try and solve one step first
 
 
 def solve_one_step(grid, knight_pos):
@@ -32,19 +30,34 @@ def solve_one_step(grid, knight_pos):
     return res
 
 
+def print_solution(ans_arr):
+    print("-----------")
+    print(f"Solution Found!")
+    print("-----------")
+    for r, c in ans_arr:
+        print(convert_idx_to_notation(r, c))
+    print("\n")
+
+
 def recursive_solve(grid, knight_pos):
     res = []
 
     def solve(grid, knight_pos, ans_arr, depth):
+        print("checking knight pos: ", knight_pos)
+        print("current steps: ", ans_arr)
+        print("depth: ", depth)
 
         is_round_over = chess.is_round_over(grid)
         is_game_over = chess.is_game_over(grid)
 
         # base case
-        if chess.is_round_over(grid):
+        if is_round_over:
             res.append(ans_arr)
+            print("ans: ", ans_arr)
+            print_solution(ans_arr)
+            exit()
             return
-        elif chess.is_game_over(grid):
+        elif is_game_over:
             return
 
         valid_knight_moves_res = chess.valid_knight_moves(knight_pos[0], knight_pos[1])
@@ -67,7 +80,7 @@ def recursive_solve(grid, knight_pos):
 def convert_idx_to_notation(r_idx, c_idx):
     letters = "ABCDEFGH"
 
-    return f"{letters[r_idx]}{c_idx + 1}"
+    return f"{letters[c_idx]}{r_idx + 1}"
 
 
 for index, solution in enumerate(recursive_solve(grid, knight_pos)):

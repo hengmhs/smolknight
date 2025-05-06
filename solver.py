@@ -1,37 +1,79 @@
 import chess, copy
 
-grid = (
-    [
-        [0, 0, 0, 1, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-    ],
-)
-knight_pos = (2, 4)
+grid = [
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+]
+knight_pos = (4, 4)
+grid[knight_pos[0]][knight_pos[1]] = 2
 
 # let's try and solve one step first
 
 
-def solve(grid, knight_pos):
+def solve_one_step(grid, knight_pos):
     res = []
     valid_knight_moves_res = chess.valid_knight_moves(knight_pos[0], knight_pos[1])
-    for target_coords in valid_knight_moves_res and chess.is_valid_move(
-        grid, target_coords[0], target_coords[1]
-    ):
-        board = copy.deepcopy(grid)
-        chess.move_knight(board, target_coords, knight_pos)
-        knight_pos = target_coords
-        grid = chess.move_pawns(board)
-        if chess.is_round_over(board):
+    for target_coords in valid_knight_moves_res:
+        grid_copy = copy.deepcopy(grid)
+        if not chess.is_valid_move(grid_copy, target_coords[0], target_coords[1]):
+            continue
+        chess.move_knight(grid_copy, target_coords, knight_pos)
+        grid_copy = chess.move_pawns(grid_copy)
+        if chess.is_round_over(grid_copy):
             res.append(target_coords)
-        elif chess.is_game_over(board):
+        elif chess.is_game_over(grid_copy):
             continue
     return res
 
 
-print(solve(grid, knight_pos))
+def recursive_solve(grid, knight_pos):
+    res = []
+
+    def solve(grid, knight_pos, ans_arr, depth):
+
+        is_round_over = chess.is_round_over(grid)
+        is_game_over = chess.is_game_over(grid)
+
+        # base case
+        if chess.is_round_over(grid):
+            res.append(ans_arr)
+            return
+        elif chess.is_game_over(grid):
+            return
+
+        valid_knight_moves_res = chess.valid_knight_moves(knight_pos[0], knight_pos[1])
+        for new_knight_coords in valid_knight_moves_res:
+            grid_copy = copy.deepcopy(grid)
+            if not chess.is_valid_move(
+                grid_copy, new_knight_coords[0], new_knight_coords[1]
+            ):
+                continue
+            chess.move_knight(grid_copy, new_knight_coords, knight_pos)
+            grid_copy = chess.move_pawns(grid_copy)
+            ans_arr_copy = ans_arr.copy()
+            ans_arr_copy.append((new_knight_coords))
+            solve(grid_copy, new_knight_coords, ans_arr_copy, depth + 1)
+
+    solve(grid, knight_pos, [], 0)
+    return res
+
+
+def convert_idx_to_notation(r_idx, c_idx):
+    letters = "ABCDEFGH"
+
+    return f"{letters[r_idx]}{c_idx + 1}"
+
+
+for index, solution in enumerate(recursive_solve(grid, knight_pos)):
+    print("-----------")
+    print(f"Solution {str(index)}")
+    print("-----------")
+    for r, c in solution:
+        print(convert_idx_to_notation(r, c))
+    print("\n")

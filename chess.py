@@ -70,7 +70,7 @@ def draw_grid(grid, valid_knight_moves_res):
 
 
 def is_valid_move(grid, r, c):
-    return 0 <= r < len(grid) and 0 <= c <= len(grid[0])
+    return 0 <= r < len(grid) and 0 <= c < len(grid[0])
 
 
 def move_knight(grid, target_coords, curr_coords):

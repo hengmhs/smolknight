@@ -163,7 +163,7 @@ def main():
 
     level_map = {
         0: {
-            "title": "Solo Leveling",
+            "title": "Lone Star",
             "grid": [
                 [0, 0, 0, 1, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0],
@@ -177,7 +177,7 @@ def main():
             "knight_pos": (4, 4),
         },
         1: {
-            "title": "Duo Queue",
+            "title": "Gemini",
             "grid": [
                 [0, 0, 0, 1, 1, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0],
@@ -233,7 +233,7 @@ def main():
             "knight_pos": (7, 4),
         },
         5: {
-            "title": "Christmas Gift",
+            "title": "Christmas Present",
             "grid": [
                 [0, 0, 0, 1, 1, 0, 0, 0],
                 [0, 0, 0, 1, 1, 0, 0, 0],
@@ -345,7 +345,7 @@ def main():
             "knight_pos": (5, 3),
         },
         13: {
-            "title": "Triplets",
+            "title": "Forefathers",
             "grid": [
                 [0, 1, 0, 1, 0, 1, 0, 1],
                 [0, 0, 0, 0, 0, 0, 0, 0],

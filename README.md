@@ -1,10 +1,8 @@
 ![logo](img/logo.png)
 
-Logo generated with miniwi font from patorjk.com
-
 # About
 
-A quick & simple single-player chess puzzle game where you use a lone knight to clear the level of enemy pawns before they reach the 8th row of the board.
+A quick & simple single-player CLI (command-line interface) chess puzzle game where you use a lone knight to clear the level of enemy pawns before they reach the 8th row of the board.
 
 Each level takes less than a minute! Clear all 15 levels to complete the game.
 
@@ -59,3 +57,7 @@ Input the command:
 # Requirements
 
 You'll need to have Python 3 installed in your machine.
+
+# Acknowledgements
+
+Logo generated with miniwi font from patorjk.com

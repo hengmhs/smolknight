@@ -1,7 +1,9 @@
-- ▄▖     ▜ ▌   ▘  ▌ ▗ 
-- ▚ ▛▛▌▛▌▐ ▙▘▛▌▌▛▌▛▌▜▘
-- ▄▌▌▌▌▙▌▐▖▛▖▌▌▌▙▌▌▌▐▖
--               ▄▌   
+`
+▄▖     ▜ ▌   ▘  ▌ ▗ 
+▚ ▛▛▌▛▌▐ ▙▘▛▌▌▛▌▛▌▜▘
+▄▌▌▌▌▙▌▐▖▛▖▌▌▌▙▌▌▌▐▖
+            ▄▌   
+`
 
 Logo generated with miniwi font from patorjk.com
 
@@ -14,7 +16,7 @@ Each level takes less than a minute! Clear all 15 levels to complete the game.
 # Usage
 
 To play, open this folder in the terminal and input the command: 
-    python3 game.py
+    `python3 game.py`
 
 # Screenshots
 
@@ -54,8 +56,8 @@ To play, open this folder in the terminal and input the command:
 
 # Solver
 
-If you would like to create your own levels, you can input the starting positions of the pawns and the knight's starting position into solver.py to check if the level is solvable. To check if there is a solution output, input the command:
-    python3 solver.py
+If you would like to create your own levels, you can input the starting positions of the pawns and the knight's starting position into `solver.py` to check if the level is solvable. To check if there is a solution output, input the command:
+    `python3 solver.py`
 
 # Requirements
 

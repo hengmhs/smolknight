@@ -1,7 +1,7 @@
-▄▖     ▜ ▌   ▘  ▌ ▗ 
-▚ ▛▛▌▛▌▐ ▙▘▛▌▌▛▌▛▌▜▘
-▄▌▌▌▌▙▌▐▖▛▖▌▌▌▙▌▌▌▐▖
-              ▄▌   
+- ▄▖     ▜ ▌   ▘  ▌ ▗ 
+- ▚ ▛▛▌▛▌▐ ▙▘▛▌▌▛▌▛▌▜▘
+- ▄▌▌▌▌▙▌▐▖▛▖▌▌▌▙▌▌▌▐▖
+-               ▄▌   
 
 Logo generated with miniwi font from patorjk.com
 
@@ -9,7 +9,7 @@ Logo generated with miniwi font from patorjk.com
 
 A quick & simple single-player chess puzzle game where you use a lone knight to clear the level of enemy pawns before they reach the 8th row of the board.
 
-Each level takes less than a minute!
+Each level takes less than a minute! Clear all 15 levels to complete the game.
 
 # Usage
 
@@ -19,13 +19,13 @@ To play, open this folder in the terminal and input the command:
 # Screenshots
 
 ## Level 5: Christmas Present
-![s1][img/s1.png]
+![s1](img/s1.png)
 
 ## Level 8: False Flag
-![s3][img/s3.png]
+![s3](img/s3.png)
 
 ## Level 9: Ambush
-![s2][img/s2.png]
+![s2](img/s2.png)
 
 # Gameplay
 

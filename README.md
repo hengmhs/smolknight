@@ -1,9 +1,4 @@
-`
-    ▄▖     ▜ ▌   ▘  ▌ ▗ 
-    ▚ ▛▛▌▛▌▐ ▙▘▛▌▌▛▌▛▌▜▘
-    ▄▌▌▌▌▙▌▐▖▛▖▌▌▌▙▌▌▌▐▖
-                ▄▌   
-`
+![logo](img/logo.png)
 
 Logo generated with miniwi font from patorjk.com
 

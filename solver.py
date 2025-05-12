@@ -90,3 +90,32 @@ for index, solution in enumerate(recursive_solve(grid, knight_pos)):
     for r, c in solution:
         print(convert_idx_to_notation(r, c))
     print("\n")
+
+
+# Solutions
+
+# Parallel Lives Solution
+
+# F3
+# H2
+# G4
+# E5
+# C6
+# A7
+# B5
+# A7
+
+# False Flag Solution
+
+# D6
+# E4
+# D6
+# E4
+# F6
+# D7
+# E5
+# D7
+# B6
+# D7
+# B6
+# D7

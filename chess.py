@@ -1,16 +1,5 @@
 import copy
 
-grid = [
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-]
-
 EMPTY = 0
 PAWN = 1
 KNIGHT = 2
@@ -135,7 +124,24 @@ def is_round_over(grid):
     return True
 
 
+def validate_level(s, level_map):
+    if not s.isnumeric():
+        return False
+    level = int(s)
+    if level not in level_map:
+        return False
+    return True
+
+
 def print_introduction():
+    print(
+        """
+▄▖     ▜ ▌   ▘  ▌ ▗ 
+▚ ▛▛▌▛▌▐ ▙▘▛▌▌▛▌▛▌▜▘
+▄▌▌▌▌▙▌▐▖▛▖▌▌▌▙▌▌▌▐▖
+              ▄▌    
+    """
+    )
     # Introduction
     print("┌───┐")
     print("RULES")
@@ -394,7 +400,12 @@ def main():
         print(f"{level_num}. {level_data["title"]}")
 
     print("\n")
+
     level_select = input("Level Select: ")
+
+    while not validate_level(level_select, level_map):
+        print(f"{RED_TEXT}{level_select} is not a valid level.{TEXT_RESET}")
+        level_select = input("Level Select: ")
 
     level = int(level_select)
 
@@ -446,37 +457,11 @@ def main():
                     draw_grid(grid, [])
                     break
             else:
-                print(f"{target_move} is an invalid move")
+                print(f"{RED_TEXT}{target_move} is an invalid move{TEXT_RESET}")
         except:
             # use with caution as this masks other types of errors as an input error
-            print(f"{target_move} is an invalid move")
+            print(f"{RED_TEXT}{target_move} is an invalid move{TEXT_RESET}")
 
 
 if __name__ == "__main__":
     main()
-
-# Parallel Lives Solution
-
-# F3
-# H2
-# G4
-# E5
-# C6
-# A7
-# B5
-# A7
-
-# False Flag Solution
-
-# D6
-# E4
-# D6
-# E4
-# F6
-# D7
-# E5
-# D7
-# B6
-# D7
-# B6
-# D7

@@ -5,9 +5,16 @@
 
 Logo generated with miniwi font from patorjk.com
 
+# About
+
+A quick & simple single-player chess puzzle game where you use a lone knight to clear the level of enemy pawns before they reach the 8th row of the board.
+
+Each level takes less than a minute!
+
 # Usage
 
-To play, open this folder in the terminal and input the command python3 game.py
+To play, open this folder in the terminal and input the command: 
+    python3 game.py
 
 # Screenshots
 
@@ -47,7 +54,8 @@ To play, open this folder in the terminal and input the command python3 game.py
 
 # Solver
 
-If you would like to create your own levels, you can input the starting positions of the pawns and the knight's starting position into solver.py to check if the level is solvable. Use python3 solver.py and check if there is a solution output.
+If you would like to create your own levels, you can input the starting positions of the pawns and the knight's starting position into solver.py to check if the level is solvable. To check if there is a solution output, input the command:
+    python3 solver.py
 
 # Requirements
 

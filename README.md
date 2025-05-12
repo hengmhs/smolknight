@@ -51,7 +51,9 @@ To play, open this folder in the terminal and input the command:
 
 # Solver
 
-If you would like to create your own levels, you can input the starting positions of the pawns and the knight's starting position into `solver.py` to check if the level is solvable. To check if there is a solution output, input the command:
+If you would like to create your own levels, you can input the starting positions of the pawns and the knight's starting position into `solver.py` to check if the level is solvable. If there is no solution output, the level is not solvable.
+
+Input the command:
     `python3 solver.py`
 
 # Requirements
